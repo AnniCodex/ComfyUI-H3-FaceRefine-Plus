@@ -4,6 +4,10 @@ Add-on nodes for [ComfyUI-H3-FaceRefine](https://github.com/Carasibana/ComfyUI-H
 MiniMax H3 face refiner for video. This pack does not replace it. It works on the `H3FACEXFORM` transform that
 **H3 Face Track Crop** produces, and it slots into the same workflow.
 
+> **See the results first: [FaceRefine Plus Tests](https://annicodex.github.io/FaceRefine-Plus-Tests/).**
+> Side-by-side videos against the official FaceRefine on small and medium faces, with every setting and
+> measurement (wobble, sharpness, colour shift, identity, render time).
+
 | Node | Replaces / goes after | What it fixes |
 |---|---|---|
 | **H3 Face Flow Lock (anti-wobble)** | after the stitch | the refined face "dancing" on the head |
