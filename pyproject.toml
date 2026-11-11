@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-h3-facerefine-plus"
-description = "Add-on nodes for ComfyUI-H3-FaceRefine: super-resolved face crops, a frequency-separated hi-res stitch and a flow lock that stops the refined face wobbling on the head."
+description = "Add-on nodes for ComfyUI-H3-FaceRefine (MiniMax H3 video face refiner, required): Flow Lock anti-wobble, Stitch Plus, super-resolved face crops, Tone Match colour fix and refine strength presets. Side-by-side tests: https://annicodex.github.io/FaceRefine-Plus-Tests/"
 version = "0.1.0"
 license = { file = "LICENSE" }
 dependencies = ["opencv-python>=4.7"]
@@ -9,6 +9,6 @@ dependencies = ["opencv-python>=4.7"]
 Repository = "https://github.com/AnniCodex/ComfyUI-H3-FaceRefine-Plus"
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "annicodex"
 DisplayName = "ComfyUI-H3-FaceRefine-Plus"
 Icon = ""
