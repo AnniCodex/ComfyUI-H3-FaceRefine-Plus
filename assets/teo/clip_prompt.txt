@@ -1,0 +1,21 @@
+subject_definitions:
+<Subject 1> is a 45-year-old Italian man, baker, with short salt-and-pepper hair, a neatly trimmed salt-and-pepper beard, warm brown eyes, a white cotton shirt with rolled sleeves, a dusty blue apron, grey trousers and brown work shoes. Facial identity from <Picture 0>; body, hair and wardrobe from the character sheet <Picture 1>.
+<Subject 2> is a narrow cobbled street in an old Italian town at sunrise, in front of a small bakery with a wooden door and a window full of bread loaves, warm golden low sun.
+
+summary:
+[reference generation] Two shots of <Subject 1> at <Subject 2>: a close-up where he speaks to the lens, then a wide full-length shot where he walks toward the camera and finishes the sentence.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1], [Shot 2]): fully_preserved - face from <Picture 0>, hair, wardrobe and build from <Picture 1>.
+<Subject 2> (appears in [Shot 1], [Shot 2]): fully_preserved - the location, its light and its colours.
+
+detailed_description:
+The target video is a realistic, cinematic live-action short film, natural colours, fine film grain, shot on a 35mm cinema camera.
+[Shot 1] A close-up of <Subject 1> (S1), face filling a third of the frame, a narrow cobbled street in an old Italian town at sunrise softly out of focus behind. He dusts flour off his hands, looks at the lens and says: <d>[English] Fresh bread, still warm.</d> The camera holds still with a very slight handheld drift.
+[Shot 2] A wide full-length shot of <Subject 1> (S1), whole figure from head to toe with space above and below, at <Subject 2>. He steps out of the bakery onto the cobbled street toward the camera, a wicker basket of loaves on his arm, and says: <d>[English] Come early tomorrow.</d> The camera slowly dollies backward, keeping him centred.
+
+overall_soundscape:
+Morning birds, a distant church bell, the bakery door bell, footsteps on cobblestones.
+
+non_diegetic_music:
+None.

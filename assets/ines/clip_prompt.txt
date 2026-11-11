@@ -1,0 +1,21 @@
+subject_definitions:
+<Subject 1> is a 24-year-old Italian woman, bicycle courier, with a glossy black chin-length bob with one emerald-green streak, dark brown eyes, a small silver nose stud, an orange windbreaker over a black hoodie, black cycling shorts over leggings and white sneakers. Facial identity from <Picture 0>; body, hair and wardrobe from the character sheet <Picture 1>.
+<Subject 2> is a busy street in Milan with tram tracks, shop fronts and parked scooters, bright midday sun with crisp shadows.
+
+summary:
+[reference generation] Two shots of <Subject 1> at <Subject 2>: a close-up where she speaks to the lens, then a wide full-length shot where she walks toward the camera and finishes the sentence.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1], [Shot 2]): fully_preserved - face from <Picture 0>, hair, wardrobe and build from <Picture 1>.
+<Subject 2> (appears in [Shot 1], [Shot 2]): fully_preserved - the location, its light and its colours.
+
+detailed_description:
+The target video is a realistic, cinematic live-action short film, natural colours, fine film grain, shot on a 35mm cinema camera.
+[Shot 1] A close-up of <Subject 1> (S1), face filling a third of the frame, a busy street in Milan with tram tracks softly out of focus behind. She checks her phone, looks up at the lens and says: <d>[English] Two more deliveries.</d> The camera holds still with a very slight handheld drift.
+[Shot 2] A wide full-length shot of <Subject 1> (S1), whole figure from head to toe with space above and below, at <Subject 2>. She walks her red bicycle along the pavement toward the camera, a yellow courier backpack on her shoulders, and says: <d>[English] Then I'm done for today.</d> The camera slowly dollies backward, keeping her centred.
+
+overall_soundscape:
+City traffic, a tram bell, bicycle freewheel clicking, distant chatter.
+
+non_diegetic_music:
+None.

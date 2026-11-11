@@ -1,0 +1,1841 @@
+{
+ "id": "2f3272d1-cb60-4809-ad7c-b713ae89def4",
+ "revision": 0,
+ "last_node_id": 305,
+ "last_link_id": 18,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UNETLoader",
+   "pos": [
+    570,
+    680
+   ],
+   "size": [
+    480,
+    82
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "unet_name",
+     "name": "unet_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "unet_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tipo_peso",
+     "name": "weight_dtype",
+     "type": "COMBO",
+     "widget": {
+      "name": "weight_dtype"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "MODELLO",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      7
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "UNETLoader"
+   },
+   "widgets_values": [
+    "qwen_image_2.1_int8_convrot.safetensors",
+    "default"
+   ],
+   "widgets_values_named": {
+    "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+    "weight_dtype": "default"
+   }
+  },
+  {
+   "id": 2,
+   "type": "H3FaceTrackCrop",
+   "pos": [
+    10,
+    1509
+   ],
+   "size": [
+    460,
+    706
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 1
+    },
+    {
+     "localized_name": "identity_reference",
+     "name": "identity_reference",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "identity_clip_vision",
+     "name": "identity_clip_vision",
+     "shape": 7,
+     "type": "CLIP_VISION",
+     "link": null
+    },
+    {
+     "localized_name": "face_pick",
+     "name": "face_pick",
+     "shape": 7,
+     "type": "H3FACEPICK",
+     "link": 2
+    },
+    {
+     "localized_name": "detector",
+     "name": "detector",
+     "type": "COMBO",
+     "widget": {
+      "name": "detector"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "confidence",
+     "name": "confidence",
+     "type": "FLOAT",
+     "widget": {
+      "name": "confidence"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crop_factor",
+     "name": "crop_factor",
+     "type": "FLOAT",
+     "widget": {
+      "name": "crop_factor"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "canvas_width",
+     "name": "canvas_width",
+     "type": "INT",
+     "widget": {
+      "name": "canvas_width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "canvas_height",
+     "name": "canvas_height",
+     "type": "INT",
+     "widget": {
+      "name": "canvas_height"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "canvas_mode",
+     "name": "canvas_mode",
+     "type": "COMBO",
+     "widget": {
+      "name": "canvas_mode"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "smooth_window",
+     "name": "smooth_window",
+     "type": "INT",
+     "widget": {
+      "name": "smooth_window"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "size_smooth_window",
+     "name": "size_smooth_window",
+     "type": "INT",
+     "widget": {
+      "name": "size_smooth_window"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "smooth_method",
+     "name": "smooth_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "smooth_method"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "size_mode",
+     "name": "size_mode",
+     "type": "COMBO",
+     "widget": {
+      "name": "size_mode"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "identity_track",
+     "name": "identity_track",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "identity_track"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "identity_threshold",
+     "name": "identity_threshold",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "identity_threshold"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "select",
+     "name": "select",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "select"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "fallback_detector",
+     "name": "fallback_detector",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "fallback_detector"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "fallback_head_frac",
+     "name": "fallback_head_frac",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "fallback_head_frac"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "select_index",
+     "name": "select_index",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "select_index"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "identity_model",
+     "name": "identity_model",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "identity_model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cut_detection",
+     "name": "cut_detection",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "cut_detection"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cut_threshold",
+     "name": "cut_threshold",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "cut_threshold"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "absent_shots",
+     "name": "absent_shots",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "absent_shots"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "X",
+     "name": "X",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "X"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "Y",
+     "name": "Y",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "Y"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "frame_index",
+     "name": "frame_index",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "frame_index"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "crops",
+     "name": "crops",
+     "type": "IMAGE",
+     "links": [
+      16,
+      17
+     ]
+    },
+    {
+     "localized_name": "transform",
+     "name": "transform",
+     "type": "H3FACEXFORM",
+     "links": null
+    },
+    {
+     "localized_name": "preview",
+     "name": "preview",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "report",
+     "name": "report",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "canvas_w",
+     "name": "canvas_w",
+     "type": "INT",
+     "links": null
+    },
+    {
+     "localized_name": "canvas_h",
+     "name": "canvas_h",
+     "type": "INT",
+     "links": null
+    },
+    {
+     "localized_name": "frame_count",
+     "name": "frame_count",
+     "type": "INT",
+     "links": null
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfyui-h3-facerefine",
+    "ver": "d7ae3ee1ec445ea29fff7fc7366fa6fe85bdc2f5",
+    "Node name for S&R": "H3FaceTrackCrop"
+   },
+   "widgets_values": [
+    "bbox\\face_yolov8m.pt",
+    0.35,
+    2,
+    768,
+    768,
+    "manual",
+    21,
+    51,
+    "gaussian",
+    "per_frame",
+    true,
+    0.28,
+    "largest_face",
+    "segm\\person_yolov8m-seg.pt",
+    0.5,
+    0,
+    "insightface",
+    "none",
+    3,
+    "off",
+    0,
+    0,
+    0
+   ],
+   "widgets_values_named": {
+    "detector": "bbox\\face_yolov8m.pt",
+    "confidence": 0.35,
+    "crop_factor": 2,
+    "canvas_width": 768,
+    "canvas_height": 768,
+    "canvas_mode": "manual",
+    "smooth_window": 21,
+    "size_smooth_window": 51,
+    "smooth_method": "gaussian",
+    "size_mode": "per_frame",
+    "identity_track": true,
+    "identity_threshold": 0.28,
+    "select": "largest_face",
+    "fallback_detector": "segm\\person_yolov8m-seg.pt",
+    "fallback_head_frac": 0.5,
+    "select_index": 0,
+    "identity_model": "insightface",
+    "cut_detection": "none",
+    "cut_threshold": 3,
+    "absent_shots": "off",
+    "X": 0,
+    "Y": 0,
+    "frame_index": 0
+   }
+  },
+  {
+   "id": 3,
+   "type": "VAELoader",
+   "pos": [
+    570,
+    988
+   ],
+   "size": [
+    480,
+    58
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "nome_vae",
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VAE",
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      4,
+      12
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "qwen_image_2.1_vae_bf16.safetensors"
+   ],
+   "widgets_values_named": {
+    "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+   }
+  },
+  {
+   "id": 5,
+   "type": "CLIPLoader",
+   "pos": [
+    570,
+    822
+   ],
+   "size": [
+    480,
+    106
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip_name",
+     "name": "clip_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "clip_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "type",
+     "name": "type",
+     "type": "COMBO",
+     "widget": {
+      "name": "type"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "device"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "CLIP",
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "qwen3vl_8b_int8_convrot.safetensors",
+    "qwen_image",
+    "default"
+   ],
+   "widgets_values_named": {
+    "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+    "type": "qwen_image",
+    "device": "default"
+   }
+  },
+  {
+   "id": 7,
+   "type": "TextEncodeQwenImage21",
+   "pos": [
+    570,
+    1106
+   ],
+   "size": [
+    480,
+    246
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 3
+    },
+    {
+     "localized_name": "image_1",
+     "name": "images.image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 5
+    },
+    {
+     "localized_name": "image_2",
+     "name": "images.image_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 6
+    },
+    {
+     "localized_name": "image_3",
+     "name": "images.image_3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 4
+    },
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "negative_prompt",
+     "name": "negative_prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "negative_prompt"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "type": "INT",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "positive",
+     "name": "positive",
+     "type": "CONDITIONING",
+     "links": [
+      8
+     ]
+    },
+    {
+     "localized_name": "negative",
+     "name": "negative",
+     "type": "CONDITIONING",
+     "links": [
+      9
+     ]
+    },
+    {
+     "localized_name": "latent",
+     "name": "latent",
+     "type": "LATENT",
+     "links": null
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "TextEncodeQwenImage21"
+   },
+   "widgets_values": [
+    "Turn image 1 into a sharp, high-resolution, photorealistic reference portrait photograph of the same young Italian woman: head and shoulders, front view, looking straight at the camera, neutral relaxed expression with the mouth closed, soft even studio light from the front, plain light grey background. Keep EXACTLY the facial identity from image 1 and image 2: face shape, jaw, cheekbones, eyes and eyelids, eyebrows, nose, lips, skin tone and hairstyle stay the same person - only the pose, expression, light and background become those of a neutral reference portrait. Natural skin texture with visible pores, sharp eyes with clear irises, individual eyelashes and eyebrow hairs, crisp lips, fine hair strands. Real camera photo, no beauty retouching, no makeup, no smoothing, no cartoon look.",
+    "blurry, smooth plastic skin, cartoon, painting, deformed face",
+    1024
+   ],
+   "widgets_values_named": {
+    "prompt": "Turn image 1 into a sharp, high-resolution, photorealistic reference portrait photograph of the same young Italian woman: head and shoulders, front view, looking straight at the camera, neutral relaxed expression with the mouth closed, soft even studio light from the front, plain light grey background. Keep EXACTLY the facial identity from image 1 and image 2: face shape, jaw, cheekbones, eyes and eyelids, eyebrows, nose, lips, skin tone and hairstyle stay the same person - only the pose, expression, light and background become those of a neutral reference portrait. Natural skin texture with visible pores, sharp eyes with clear irises, individual eyelashes and eyebrow hairs, crisp lips, fine hair strands. Real camera photo, no beauty retouching, no makeup, no smoothing, no cartoon look.",
+    "negative_prompt": "blurry, smooth plastic skin, cartoon, painting, deformed face",
+    "resolution": 1024
+   }
+  },
+  {
+   "id": 9,
+   "type": "EmptyLatentImage",
+   "pos": [
+    570,
+    1412
+   ],
+   "size": [
+    480,
+    106
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "larghezza",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "altezza",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "dimensione_batch",
+     "name": "batch_size",
+     "type": "INT",
+     "widget": {
+      "name": "batch_size"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "LATENT",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      10
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "EmptyLatentImage"
+   },
+   "widgets_values": [
+    1024,
+    1024,
+    1
+   ],
+   "widgets_values_named": {
+    "width": 1024,
+    "height": 1024,
+    "batch_size": 1
+   }
+  },
+  {
+   "id": 10,
+   "type": "KSampler",
+   "pos": [
+    570,
+    1578
+   ],
+   "size": [
+    480,
+    262
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "modello",
+     "name": "model",
+     "type": "MODEL",
+     "link": 7
+    },
+    {
+     "localized_name": "positivo",
+     "name": "positive",
+     "type": "CONDITIONING",
+     "link": 8
+    },
+    {
+     "localized_name": "negativo",
+     "name": "negative",
+     "type": "CONDITIONING",
+     "link": 9
+    },
+    {
+     "localized_name": "immagine_latent",
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 10
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "passaggi",
+     "name": "steps",
+     "type": "INT",
+     "widget": {
+      "name": "steps"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cfg",
+     "name": "cfg",
+     "type": "FLOAT",
+     "widget": {
+      "name": "cfg"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "nome_sampler",
+     "name": "sampler_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "sampler_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "scheduler",
+     "name": "scheduler",
+     "type": "COMBO",
+     "widget": {
+      "name": "scheduler"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "denoise",
+     "name": "denoise",
+     "type": "FLOAT",
+     "widget": {
+      "name": "denoise"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "LATENT",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      11
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "KSampler"
+   },
+   "widgets_values": [
+    1,
+    "randomize",
+    25,
+    1,
+    "euler",
+    "simple",
+    1
+   ],
+   "widgets_values_named": {
+    "seed": 1,
+    "control_after_generate": "randomize",
+    "steps": 25,
+    "cfg": 1,
+    "sampler_name": "euler",
+    "scheduler": "simple",
+    "denoise": 1
+   }
+  },
+  {
+   "id": 20,
+   "type": "VAEDecode",
+   "pos": [
+    570,
+    1900
+   ],
+   "size": [
+    480,
+    46
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "campioni",
+     "name": "samples",
+     "type": "LATENT",
+     "link": 11
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "type": "VAE",
+     "link": 12
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMMAGINE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      13
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "VAEDecode"
+   }
+  },
+  {
+   "id": 21,
+   "type": "SaveImage",
+   "pos": [
+    1130,
+    430
+   ],
+   "size": [
+    440,
+    58
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "immagini",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 13
+    },
+    {
+     "localized_name": "prefisso_nome_file",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "immagini",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "H3FaceRefinePlus/face_reference_B"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "H3FaceRefinePlus/face_reference_B"
+   }
+  },
+  {
+   "id": 30,
+   "type": "PreviewImage",
+   "pos": [
+    10,
+    2559
+   ],
+   "size": [
+    460,
+    26
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 14
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "PreviewImage"
+   }
+  },
+  {
+   "id": 102,
+   "type": "ImageScale",
+   "pos": [
+    570,
+    490
+   ],
+   "size": [
+    480,
+    130
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "immagine",
+     "name": "image",
+     "type": "IMAGE",
+     "link": 15
+    },
+    {
+     "localized_name": "metodo_ingrandimento",
+     "name": "upscale_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "upscale_method"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "larghezza",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "altezza",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ritaglia",
+     "name": "crop",
+     "type": "COMBO",
+     "widget": {
+      "name": "crop"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMMAGINE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      5
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "ImageScale"
+   },
+   "widgets_values": [
+    "lanczos",
+    1024,
+    1024,
+    "disabled"
+   ],
+   "widgets_values_named": {
+    "upscale_method": "lanczos",
+    "width": 1024,
+    "height": 1024,
+    "crop": "disabled"
+   }
+  },
+  {
+   "id": 110,
+   "type": "ImageFromBatch",
+   "pos": [
+    10,
+    2275
+   ],
+   "size": [
+    460,
+    82
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "immagine",
+     "name": "image",
+     "type": "IMAGE",
+     "link": 16
+    },
+    {
+     "localized_name": "indice batch",
+     "name": "batch_index",
+     "type": "INT",
+     "widget": {
+      "name": "batch_index"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "lunghezza",
+     "name": "length",
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMMAGINE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      14,
+      15
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "ImageFromBatch"
+   },
+   "widgets_values": [
+    40,
+    1
+   ],
+   "widgets_values_named": {
+    "batch_index": 40,
+    "length": 1
+   }
+  },
+  {
+   "id": 111,
+   "type": "ImageFromBatch",
+   "pos": [
+    10,
+    2417
+   ],
+   "size": [
+    460,
+    82
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "immagine",
+     "name": "image",
+     "type": "IMAGE",
+     "link": 17
+    },
+    {
+     "localized_name": "indice batch",
+     "name": "batch_index",
+     "type": "INT",
+     "widget": {
+      "name": "batch_index"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "lunghezza",
+     "name": "length",
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "IMMAGINE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      6
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "ImageFromBatch"
+   },
+   "widgets_values": [
+    80,
+    1
+   ],
+   "widgets_values_named": {
+    "batch_index": 80,
+    "length": 1
+   }
+  },
+  {
+   "id": 112,
+   "type": "H3FaceSelect",
+   "pos": [
+    10,
+    608
+   ],
+   "size": [
+    460,
+    841
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "identity_reference",
+     "name": "identity_reference",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "identity_clip_vision",
+     "name": "identity_clip_vision",
+     "shape": 7,
+     "type": "CLIP_VISION",
+     "link": null
+    },
+    {
+     "localized_name": "video",
+     "name": "video",
+     "type": "STRING",
+     "widget": {
+      "name": "video"
+     },
+     "link": 18
+    },
+    {
+     "localized_name": "detector",
+     "name": "detector",
+     "type": "COMBO",
+     "widget": {
+      "name": "detector"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "confidence",
+     "name": "confidence",
+     "type": "FLOAT",
+     "widget": {
+      "name": "confidence"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "select",
+     "name": "select",
+     "type": "COMBO",
+     "widget": {
+      "name": "select"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "select_index",
+     "name": "select_index",
+     "type": "INT",
+     "widget": {
+      "name": "select_index"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "confirmed_pick",
+     "name": "confirmed_pick",
+     "type": "STRING",
+     "widget": {
+      "name": "confirmed_pick"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cut_detection",
+     "name": "cut_detection",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "cut_detection"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cut_threshold",
+     "name": "cut_threshold",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "cut_threshold"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "skip_first_frames",
+     "name": "skip_first_frames",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "skip_first_frames"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "frame_load_cap",
+     "name": "frame_load_cap",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "frame_load_cap"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "select_every_nth",
+     "name": "select_every_nth",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "select_every_nth"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "identity_model",
+     "name": "identity_model",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "identity_model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "identity_threshold",
+     "name": "identity_threshold",
+     "shape": 7,
+     "type": "FLOAT",
+     "widget": {
+      "name": "identity_threshold"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "X",
+     "name": "X",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "X"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "Y",
+     "name": "Y",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "Y"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "frame_index",
+     "name": "frame_index",
+     "shape": 7,
+     "type": "INT",
+     "widget": {
+      "name": "frame_index"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": [
+      1
+     ]
+    },
+    {
+     "localized_name": "audio",
+     "name": "audio",
+     "type": "AUDIO",
+     "links": null
+    },
+    {
+     "localized_name": "face_pick",
+     "name": "face_pick",
+     "type": "H3FACEPICK",
+     "links": [
+      2
+     ]
+    },
+    {
+     "localized_name": "preview",
+     "name": "preview",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "report",
+     "name": "report",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "frame_count",
+     "name": "frame_count",
+     "type": "INT",
+     "links": null
+    },
+    {
+     "localized_name": "fps",
+     "name": "fps",
+     "type": "FLOAT",
+     "links": null
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfyui-h3-facerefine",
+    "ver": "d7ae3ee1ec445ea29fff7fc7366fa6fe85bdc2f5",
+    "Node name for S&R": "H3FaceSelect"
+   },
+   "widgets_values": [
+    "",
+    "bbox\\face_yolov8m.pt",
+    0.35,
+    "largest_face",
+    0,
+    "",
+    "auto (pyscenedetect)",
+    3,
+    0,
+    0,
+    1,
+    "insightface",
+    0.28,
+    0,
+    0,
+    0,
+    "",
+    "",
+    ""
+   ],
+   "widgets_values_named": {
+    "video": "",
+    "detector": "bbox\\face_yolov8m.pt",
+    "confidence": 0.35,
+    "select": "largest_face",
+    "select_index": 0,
+    "confirmed_pick": "",
+    "cut_detection": "auto (pyscenedetect)",
+    "cut_threshold": 3,
+    "skip_first_frames": 0,
+    "frame_load_cap": 0,
+    "select_every_nth": 1,
+    "identity_model": "insightface",
+    "identity_threshold": 0.28,
+    "X": 0,
+    "Y": 0,
+    "frame_index": 0,
+    "h3fr_preview": "",
+    "h3fr_xy": "",
+    "h3fr_clip": ""
+   }
+  },
+  {
+   "id": 301,
+   "type": "PrimitiveString",
+   "pos": [
+    10,
+    490
+   ],
+   "size": [
+    460,
+    58
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "valore",
+     "name": "value",
+     "type": "STRING",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "STRINGA",
+     "name": "STRING",
+     "type": "STRING",
+     "links": [
+      18
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.44.0",
+    "Node name for S&R": "PrimitiveString"
+   },
+   "widgets_values": [
+    "C:/ComfyUI/input/h3plus_example/mara/method_b/refined_shot_A.mp4"
+   ],
+   "widgets_values_named": {
+    "value": "C:/ComfyUI/input/h3plus_example/mara/method_b/refined_shot_A.mp4"
+   }
+  },
+  {
+   "id": 302,
+   "type": "MarkdownNote",
+   "pos": [
+    0,
+    -850
+   ],
+   "size": [
+    1500,
+    760
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "title": "READ ME",
+   "properties": {},
+   "widgets_values": [
+    "# Method B: a new face reference from the refined face\n\n*The author's method to keep the same face between a normal clip and its FaceRefine Plus version.*\n\n**The problem:**\n- H3 draws a face in a wide shot from very few pixels.\n- FaceRefine Plus re-draws it with detail, guided by the face reference and the keyref.\n- The refined face is sharper, but it can look like a slightly different person from the same character in the clip's close-ups. The close-ups were rendered straight from the original reference.\n\n**The idea:** use the refined face as the character's reference from the start, so every shot is built on the same face.\n\n1. Make the clip from the original face reference (clip workflow).\n2. Run FaceRefine Plus on the wide shot (one-shot workflow, with its keyref).\n3. **This workflow:** take one frame of the refined shot, crop the face, and let Qwen Image 2.1 turn it into a neutral reference portrait. The identity comes from the refined face only. This is `face_reference_B.png`.\n4. Rebuild the character sheet from the new reference, then re-render the clip **from scratch**: same prompt, same seed, new reference and new sheet.\n5. Run FaceRefine Plus on the new wide shot. The refine now pulls toward a face the close-ups already have.\n\n**When:** at the start of a new video, before the other clips. It changes the protagonist's face slightly, so don't switch mid-project.\n\n**Measured** (ArcFace cosine, the clip's close-ups vs the refined wide shot, higher = same person): on the four example characters the refined wide shot went from 0.55 to 0.65 on average (README table). On a music video it went from 0.56 to 0.75."
+   ],
+   "widgets_values_named": {
+    "text": "# Method B: a new face reference from the refined face\n\n*The author's method to keep the same face between a normal clip and its FaceRefine Plus version.*\n\n**The problem:**\n- H3 draws a face in a wide shot from very few pixels.\n- FaceRefine Plus re-draws it with detail, guided by the face reference and the keyref.\n- The refined face is sharper, but it can look like a slightly different person from the same character in the clip's close-ups. The close-ups were rendered straight from the original reference.\n\n**The idea:** use the refined face as the character's reference from the start, so every shot is built on the same face.\n\n1. Make the clip from the original face reference (clip workflow).\n2. Run FaceRefine Plus on the wide shot (one-shot workflow, with its keyref).\n3. **This workflow:** take one frame of the refined shot, crop the face, and let Qwen Image 2.1 turn it into a neutral reference portrait. The identity comes from the refined face only. This is `face_reference_B.png`.\n4. Rebuild the character sheet from the new reference, then re-render the clip **from scratch**: same prompt, same seed, new reference and new sheet.\n5. Run FaceRefine Plus on the new wide shot. The refine now pulls toward a face the close-ups already have.\n\n**When:** at the start of a new video, before the other clips. It changes the protagonist's face slightly, so don't switch mid-project.\n\n**Measured** (ArcFace cosine, the clip's close-ups vs the refined wide shot, higher = same person): on the four example characters the refined wide shot went from 0.55 to 0.65 on average (README table). On a music video it went from 0.56 to 0.75."
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 303,
+   "type": "MarkdownNote",
+   "pos": [
+    10,
+    40
+   ],
+   "size": [
+    460,
+    420
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "title": "Note: 1 - Refined shot + face crop",
+   "properties": {},
+   "widgets_values": [
+    "## 1 - Refined shot + face crop\n\n- **path:** the FaceRefine Plus output of the wide shot, i.e. step 2 of method B. The example is `method_b/refined_shot_A.mp4`.\n- **Face Select + Track Crop** detect the face and crop a square around it on every frame (crop_factor 2.0, 768 px).\n- **Image From Batch, image 1:** the frame to turn into the portrait. Pick one where the face is large, sharp, close to frontal and not mid-word. Look at the preview, then change `batch_index`.\n- **Image From Batch, image 2:** a second frame of the same shot, as an extra identity view.\n\nTip: in a shot where the subject walks toward the camera, the last frames have the largest face."
+   ],
+   "widgets_values_named": {
+    "text": "## 1 - Refined shot + face crop\n\n- **path:** the FaceRefine Plus output of the wide shot, i.e. step 2 of method B. The example is `method_b/refined_shot_A.mp4`.\n- **Face Select + Track Crop** detect the face and crop a square around it on every frame (crop_factor 2.0, 768 px).\n- **Image From Batch, image 1:** the frame to turn into the portrait. Pick one where the face is large, sharp, close to frontal and not mid-word. Look at the preview, then change `batch_index`.\n- **Image From Batch, image 2:** a second frame of the same shot, as an extra identity view.\n\nTip: in a shot where the subject walks toward the camera, the last frames have the largest face."
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 304,
+   "type": "MarkdownNote",
+   "pos": [
+    570,
+    40
+   ],
+   "size": [
+    480,
+    420
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "title": "Note: 2 - Qwen Image 2.1: neutral portrait",
+   "properties": {},
+   "widgets_values": [
+    "## 2 - Qwen Image 2.1: the neutral portrait\n\nThe prompt turns image 1 into a reference portrait:\n- head and shoulders, front view;\n- neutral expression, mouth closed;\n- soft studio light, plain grey background.\n\nIt keeps the identity of images 1 and 2 (face shape, eyes, nose, lips, skin tone, hairstyle). Adapt `young Italian woman` to your subject.\n\n- euler / simple, 25 steps, cfg 1.0.\n- Make 2-3 seeds and keep the one that looks most like the refined shot. In the examples the pick was automatic: highest ArcFace similarity to the refined shot.\n\nUse Qwen Image Edit, not Flux Kontext / Klein-type editors: those change the person."
+   ],
+   "widgets_values_named": {
+    "text": "## 2 - Qwen Image 2.1: the neutral portrait\n\nThe prompt turns image 1 into a reference portrait:\n- head and shoulders, front view;\n- neutral expression, mouth closed;\n- soft studio light, plain grey background.\n\nIt keeps the identity of images 1 and 2 (face shape, eyes, nose, lips, skin tone, hairstyle). Adapt `young Italian woman` to your subject.\n\n- euler / simple, 25 steps, cfg 1.0.\n- Make 2-3 seeds and keep the one that looks most like the refined shot. In the examples the pick was automatic: highest ArcFace similarity to the refined shot.\n\nUse Qwen Image Edit, not Flux Kontext / Klein-type editors: those change the person."
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 305,
+   "type": "MarkdownNote",
+   "pos": [
+    1130,
+    40
+   ],
+   "size": [
+    440,
+    360
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "title": "Note: 3 - Save + next steps",
+   "properties": {},
+   "widgets_values": [
+    "## 3 - Then\n\nSave the result as the new face reference (`face_reference_B.png`), then:\n1. rebuild the character sheet from it;\n2. open the clip workflow, swap in the new reference and the new sheet, keep the prompt and the **seed**, and render;\n3. cut the wide shot out and make its keyref (keyref workflow, identity from the NEW clip's close-up);\n4. run the one-shot FaceRefine Plus workflow on it.\n\nThe example's results are in `assets/<character>/method_b/`. Its `face_reference_B.png` was picked by ArcFace among 3 seeds and several frames, so this workflow's output with the default frames and seed is similar but not identical."
+   ],
+   "widgets_values_named": {
+    "text": "## 3 - Then\n\nSave the result as the new face reference (`face_reference_B.png`), then:\n1. rebuild the character sheet from it;\n2. open the clip workflow, swap in the new reference and the new sheet, keep the prompt and the **seed**, and render;\n3. cut the wide shot out and make its keyref (keyref workflow, identity from the NEW clip's close-up);\n4. run the one-shot FaceRefine Plus workflow on it.\n\nThe example's results are in `assets/<character>/method_b/`. Its `face_reference_B.png` was picked by ArcFace among 3 seeds and several frames, so this workflow's output with the default frames and seed is similar but not identical."
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  }
+ ],
+ "links": [
+  [
+   1,
+   112,
+   0,
+   2,
+   0,
+   "IMAGE"
+  ],
+  [
+   2,
+   112,
+   2,
+   2,
+   3,
+   "H3FACEPICK"
+  ],
+  [
+   3,
+   5,
+   0,
+   7,
+   0,
+   "CLIP"
+  ],
+  [
+   5,
+   102,
+   0,
+   7,
+   1,
+   "IMAGE"
+  ],
+  [
+   6,
+   111,
+   0,
+   7,
+   2,
+   "IMAGE"
+  ],
+  [
+   4,
+   3,
+   0,
+   7,
+   4,
+   "VAE"
+  ],
+  [
+   7,
+   1,
+   0,
+   10,
+   0,
+   "MODEL"
+  ],
+  [
+   8,
+   7,
+   0,
+   10,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   9,
+   7,
+   1,
+   10,
+   2,
+   "CONDITIONING"
+  ],
+  [
+   10,
+   9,
+   0,
+   10,
+   3,
+   "LATENT"
+  ],
+  [
+   11,
+   10,
+   0,
+   20,
+   0,
+   "LATENT"
+  ],
+  [
+   12,
+   3,
+   0,
+   20,
+   1,
+   "VAE"
+  ],
+  [
+   13,
+   20,
+   0,
+   21,
+   0,
+   "IMAGE"
+  ],
+  [
+   14,
+   110,
+   0,
+   30,
+   0,
+   "IMAGE"
+  ],
+  [
+   15,
+   110,
+   0,
+   102,
+   0,
+   "IMAGE"
+  ],
+  [
+   16,
+   2,
+   0,
+   110,
+   0,
+   "IMAGE"
+  ],
+  [
+   17,
+   2,
+   0,
+   111,
+   0,
+   "IMAGE"
+  ],
+  [
+   18,
+   301,
+   0,
+   112,
+   2,
+   "STRING"
+  ]
+ ],
+ "groups": [
+  {
+   "id": 1,
+   "title": "1 - Refined shot + face crop",
+   "bounding": [
+    0,
+    0,
+    480,
+    2645
+   ],
+   "color": "#3f789e",
+   "flags": {}
+  },
+  {
+   "id": 2,
+   "title": "2 - Qwen Image 2.1: neutral portrait",
+   "bounding": [
+    560,
+    0,
+    500,
+    2006
+   ],
+   "color": "#3f789e",
+   "flags": {}
+  },
+  {
+   "id": 3,
+   "title": "3 - Save + next steps",
+   "bounding": [
+    1120,
+    0,
+    460,
+    548
+   ],
+   "color": "#3f789e",
+   "flags": {}
+  }
+ ],
+ "config": {},
+ "extra": {
+  "ue_links": [],
+  "ds": {
+   "scale": 0.26520856794294295,
+   "offset": [
+    1155.5560298117964,
+    893
+   ]
+  }
+ },
+ "version": 0.4
+}

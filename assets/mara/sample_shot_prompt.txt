@@ -1,0 +1,22 @@
+subject_definitions:
+<Subject 1> is a 32-year-old Italian woman, lighthouse keeper, with short tousled copper-red hair, light freckles, green-grey eyes, a bright yellow rain jacket over a grey wool sweater, dark jeans and black rubber boots. Facial identity from <Picture 0>; body, hair and wardrobe from the character sheet <Picture 1>.
+<Subject 2> is a windswept stone pier at the foot of a white lighthouse on a rocky Ligurian coast, grey-blue sea with white foam, overcast late-afternoon light.
+<Picture 2> is a sharp high-resolution close-up photograph of the face of <Subject 1> exactly as it appears in this shot (same pose, expression and light): use it for the fine facial detail of <Subject 1> - skin texture and pores, eyes and catchlights, eyelashes, eyebrows, lips and hair strands.
+
+summary:
+[reference generation] <Subject 1> at <Subject 2>, one wide full-length shot.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - face from <Picture 0> with the fine detail of <Picture 2>, hair, wardrobe and build from <Picture 1>.
+<Subject 2> (appears in [Shot 1]): fully_preserved - the location, its light and its colours.
+
+detailed_description:
+The target video is a realistic, cinematic live-action short film, natural colours, fine film grain, shot on a 35mm cinema camera.
+[Shot 1] ): fully_preserved - face from <Picture 0>, hair, wardrobe and build from <Picture 1>.
+<Subject 2> (appears in [Shot 1],
+
+overall_soundscape:
+Wind gusts, waves breaking on the rocks, gulls, the creak of a metal railing.
+
+non_diegetic_music:
+None.

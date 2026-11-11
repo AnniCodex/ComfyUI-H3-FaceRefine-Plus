@@ -1,0 +1,22 @@
+subject_definitions:
+<Subject 1> is a 24-year-old Italian woman, bicycle courier, with a glossy black chin-length bob with one emerald-green streak, dark brown eyes, a small silver nose stud, an orange windbreaker over a black hoodie, black cycling shorts over leggings and white sneakers. Facial identity from <Picture 0>; body, hair and wardrobe from the character sheet <Picture 1>.
+<Subject 2> is a busy street in Milan with tram tracks, shop fronts and parked scooters, bright midday sun with crisp shadows.
+<Picture 2> is a sharp high-resolution close-up photograph of the face of <Subject 1> exactly as it appears in this shot (same pose, expression and light): use it for the fine facial detail of <Subject 1> - skin texture and pores, eyes and catchlights, eyelashes, eyebrows, lips and hair strands.
+
+summary:
+[reference generation] <Subject 1> at <Subject 2>, one wide full-length shot.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - face from <Picture 0> with the fine detail of <Picture 2>, hair, wardrobe and build from <Picture 1>.
+<Subject 2> (appears in [Shot 1]): fully_preserved - the location, its light and its colours.
+
+detailed_description:
+The target video is a realistic, cinematic live-action short film, natural colours, fine film grain, shot on a 35mm cinema camera.
+[Shot 1] ): fully_preserved - face from <Picture 0>, hair, wardrobe and build from <Picture 1>.
+<Subject 2> (appears in [Shot 1],
+
+overall_soundscape:
+City traffic, a tram bell, bicycle freewheel clicking, distant chatter.
+
+non_diegetic_music:
+None.

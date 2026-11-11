@@ -1,0 +1,215 @@
+{
+ "301": {
+  "class_type": "PrimitiveString",
+  "inputs": {
+   "value": "C:/ComfyUI/input/h3plus_example/mara/method_b/refined_shot_A.mp4"
+  }
+ },
+ "112": {
+  "class_type": "H3FaceSelect",
+  "inputs": {
+   "video": [
+    "301",
+    0
+   ],
+   "detector": "bbox\\face_yolov8m.pt",
+   "confidence": 0.35,
+   "select": "largest_face",
+   "select_index": 0,
+   "confirmed_pick": "",
+   "cut_detection": "auto (pyscenedetect)",
+   "cut_threshold": 3,
+   "skip_first_frames": 0,
+   "frame_load_cap": 0,
+   "select_every_nth": 1,
+   "identity_model": "insightface",
+   "identity_threshold": 0.28,
+   "X": 0,
+   "Y": 0,
+   "frame_index": 0
+  }
+ },
+ "2": {
+  "class_type": "H3FaceTrackCrop",
+  "inputs": {
+   "images": [
+    "112",
+    0
+   ],
+   "detector": "bbox\\face_yolov8m.pt",
+   "confidence": 0.35,
+   "crop_factor": 2.0,
+   "canvas_width": 768,
+   "canvas_height": 768,
+   "canvas_mode": "manual",
+   "smooth_window": 21,
+   "size_smooth_window": 51,
+   "smooth_method": "gaussian",
+   "size_mode": "per_frame",
+   "identity_track": true,
+   "identity_threshold": 0.28,
+   "select": "largest_face",
+   "fallback_detector": "segm\\person_yolov8m-seg.pt",
+   "fallback_head_frac": 0.5,
+   "select_index": 0,
+   "identity_model": "insightface",
+   "cut_detection": "none",
+   "cut_threshold": 3,
+   "absent_shots": "off",
+   "X": 0,
+   "Y": 0,
+   "frame_index": 0,
+   "face_pick": [
+    "112",
+    2
+   ]
+  }
+ },
+ "110": {
+  "class_type": "ImageFromBatch",
+  "inputs": {
+   "image": [
+    "2",
+    0
+   ],
+   "batch_index": 40,
+   "length": 1
+  }
+ },
+ "111": {
+  "class_type": "ImageFromBatch",
+  "inputs": {
+   "image": [
+    "2",
+    0
+   ],
+   "batch_index": 80,
+   "length": 1
+  }
+ },
+ "102": {
+  "class_type": "ImageScale",
+  "inputs": {
+   "image": [
+    "110",
+    0
+   ],
+   "upscale_method": "lanczos",
+   "width": 1024,
+   "height": 1024,
+   "crop": "disabled"
+  }
+ },
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "5": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+   "type": "qwen_image",
+   "device": "default"
+  }
+ },
+ "3": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "TextEncodeQwenImage21",
+  "inputs": {
+   "prompt": "Turn image 1 into a sharp, high-resolution, photorealistic reference portrait photograph of the same young Italian woman: head and shoulders, front view, looking straight at the camera, neutral relaxed expression with the mouth closed, soft even studio light from the front, plain light grey background. Keep EXACTLY the facial identity from image 1 and image 2: face shape, jaw, cheekbones, eyes and eyelids, eyebrows, nose, lips, skin tone and hairstyle stay the same person - only the pose, expression, light and background become those of a neutral reference portrait. Natural skin texture with visible pores, sharp eyes with clear irises, individual eyelashes and eyebrow hairs, crisp lips, fine hair strands. Real camera photo, no beauty retouching, no makeup, no smoothing, no cartoon look.",
+   "negative_prompt": "blurry, smooth plastic skin, cartoon, painting, deformed face",
+   "resolution": 1024,
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ],
+   "images.image_1": [
+    "102",
+    0
+   ],
+   "images.image_2": [
+    "111",
+    0
+   ]
+  }
+ },
+ "9": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 1024,
+   "height": 1024,
+   "batch_size": 1
+  }
+ },
+ "10": {
+  "class_type": "KSampler",
+  "inputs": {
+   "seed": 1,
+   "steps": 25,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0,
+   "model": [
+    "1",
+    0
+   ],
+   "positive": [
+    "7",
+    0
+   ],
+   "negative": [
+    "7",
+    1
+   ],
+   "latent_image": [
+    "9",
+    0
+   ]
+  }
+ },
+ "20": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "10",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ]
+  }
+ },
+ "21": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "H3FaceRefinePlus/face_reference_B",
+   "images": [
+    "20",
+    0
+   ]
+  }
+ },
+ "30": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "110",
+    0
+   ]
+  }
+ }
+}

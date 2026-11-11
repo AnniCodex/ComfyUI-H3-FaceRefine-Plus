@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-h3-facerefine-plus"
+description = "Add-on nodes for ComfyUI-H3-FaceRefine: super-resolved face crops, a frequency-separated hi-res stitch and a flow lock that stops the refined face wobbling on the head."
+version = "0.1.0"
+license = { file = "LICENSE" }
+dependencies = ["opencv-python>=4.7"]
+
+[project.urls]
+Repository = "https://github.com/AnniCodex/ComfyUI-H3-FaceRefine-Plus"
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-H3-FaceRefine-Plus"
+Icon = ""

@@ -1,0 +1,130 @@
+{
+ "100": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "h3plus_example/mara/keyref_source.png"
+  }
+ },
+ "102": {
+  "class_type": "ImageScale",
+  "inputs": {
+   "image": [
+    "100",
+    0
+   ],
+   "upscale_method": "lanczos",
+   "width": 1024,
+   "height": 1024,
+   "crop": "disabled"
+  }
+ },
+ "101": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "h3plus_example/mara/keyref_identity_closeup.png"
+  }
+ },
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+   "type": "qwen_image",
+   "device": "default"
+  }
+ },
+ "3": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "TextEncodeQwenImage21",
+  "inputs": {
+   "prompt": "Turn image 1 into a sharp, high-resolution, photorealistic close-up photograph of the same young Italian woman. Keep EXACTLY the pose, head angle, gaze direction, facial expression, mouth shape, framing, lighting direction, colours and background of image 1 - only the image quality changes. The face is the same real person as in image 2: use image 2 for facial identity and fine facial detail only, not for its pose, light or background. Natural skin texture with visible pores and fine skin detail, sharp eyes with clear irises and catchlights, individual eyelashes and eyebrow hairs, crisp lips, fine hair strands. Real camera photo, natural, no beauty retouching, no makeup change, no smoothing, no cartoon look.",
+   "negative_prompt": "blurry, smooth plastic skin, cartoon, painting, deformed face",
+   "resolution": 1024,
+   "clip": [
+    "2",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ],
+   "images.image_1": [
+    "102",
+    0
+   ],
+   "images.image_2": [
+    "101",
+    0
+   ]
+  }
+ },
+ "9": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "width": 1024,
+   "height": 1024,
+   "batch_size": 1
+  }
+ },
+ "10": {
+  "class_type": "KSampler",
+  "inputs": {
+   "seed": 2,
+   "steps": 25,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0,
+   "model": [
+    "1",
+    0
+   ],
+   "positive": [
+    "7",
+    0
+   ],
+   "negative": [
+    "7",
+    1
+   ],
+   "latent_image": [
+    "9",
+    0
+   ]
+  }
+ },
+ "20": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "10",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ]
+  }
+ },
+ "21": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "H3FaceRefinePlus/keyref",
+   "images": [
+    "20",
+    0
+   ]
+  }
+ }
+}
