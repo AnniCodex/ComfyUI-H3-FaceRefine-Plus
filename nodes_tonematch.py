@@ -24,8 +24,20 @@ from __future__ import annotations
 import numpy as np
 import torch
 
+import torch.nn.functional as F
+
 import comfy.utils
 import comfy.model_management as mm
+
+try:
+    from .gpu_ops import gauss, rgb2lab, lab2rgb
+except ImportError:  # loaded as a plain module (tests)
+    from gpu_ops import gauss, rgb2lab, lab2rgb
+
+
+def _yolo_device():
+    d = mm.get_torch_device()
+    return f"cuda:{d.index or 0}" if d.type == "cuda" else "cpu"
 
 
 class H3FaceToneMatch:
@@ -77,7 +89,7 @@ class H3FaceToneMatch:
         import cv2
         bgr = (src_rgb01[..., ::-1] * 255.0 + 0.5).astype(np.uint8)
         out = []
-        boxes = det.predict(bgr, conf=0.4, verbose=False, device="cpu")[0].boxes.xyxy.tolist()
+        boxes = det.predict(bgr, conf=0.4, verbose=False, device=_yolo_device())[0].boxes.xyxy.tolist()
         for x0, y0, x1, y1 in sorted(boxes, key=lambda b: b[0] + b[2]):
             w, h = x1 - x0, y1 - y0
             if h < 40:
@@ -108,32 +120,38 @@ class H3FaceToneMatch:
         sl, sc = max(0.5, sigma_luma_frac * H), max(0.5, sigma_chroma_frac * H)
         out = processed_images[..., :3].clone()
         dev = []
+        gdev = mm.get_torch_device()
         pbar = comfy.utils.ProgressBar(n)
+        # GPU (v0.2): LAB conversions, blurs and resizes in torch; same maths as the cv2 version, ~10x faster
         for k in range(n):
             mm.throw_exception_if_processing_interrupted()
-            s = source_images[source_offset + k, ..., :3].float().cpu().numpy()
-            q = processed_images[k, ..., :3].float().cpu().numpy()
-            qs = cv2.resize(q, (W, H), interpolation=cv2.INTER_AREA) if (QW, QH) != (W, H) else q
-            d = cv2.cvtColor(s, cv2.COLOR_RGB2LAB) - cv2.cvtColor(qs, cv2.COLOR_RGB2LAB)
-            corr = np.dstack([cv2.GaussianBlur(d[..., 0], (0, 0), sl)] +
-                             [cv2.GaussianBlur(d[..., c], (0, 0), sc) for c in (1, 2)])
-            dev.append(np.abs(corr).reshape(-1, 3).mean(0))
-            if det is not None:
-                ls = cv2.cvtColor(s, cv2.COLOR_RGB2LAB)
-                after = cv2.cvtColor(qs, cv2.COLOR_RGB2LAB) + corr
-                for f, lm in enumerate(self._lip_masks(det, s, ls)):
-                    if lm is None:
-                        continue
-                    (Y0, Y1, X0, X1), m = lm
-                    w8 = m / m.sum()
-                    dl = np.array([((ls[Y0:Y1, X0:X1, c] - after[Y0:Y1, X0:X1, c]) * w8).sum() for c in range(3)], np.float32)
-                    ema[f] = dl if f not in ema else 0.5 * ema[f] + 0.5 * dl
-                    corr[Y0:Y1, X0:X1] += ema[f] * np.clip(m * 1.6, 0, 1)[..., None]
-                    lipd.append(ema[f])
-            if (QW, QH) != (W, H):
-                corr = cv2.resize(corr, (QW, QH), interpolation=cv2.INTER_LINEAR)
-            res = np.clip(cv2.cvtColor(cv2.cvtColor(q, cv2.COLOR_RGB2LAB) + corr, cv2.COLOR_LAB2RGB), 0, 1)
-            out[k] = torch.from_numpy(res).to(out.dtype)
+            with torch.no_grad():
+                s_t = source_images[source_offset + k, ..., :3].to(gdev).float()
+                q_t = processed_images[k, ..., :3].to(gdev).float()
+                qs_t = (F.interpolate(q_t.movedim(-1, 0)[None], size=(H, W), mode="area")[0].movedim(0, -1)
+                        if (QW, QH) != (W, H) else q_t)
+                ls_t, lq_t = rgb2lab(s_t), rgb2lab(qs_t)
+                d = (ls_t - lq_t).movedim(-1, 0)[None]
+                corr = torch.cat([gauss(d[:, :1], sl), gauss(d[:, 1:], sc)], 1)[0].movedim(0, -1)  # (H, W, 3)
+                dev.append(corr.abs().reshape(-1, 3).mean(0).cpu().numpy())
+                if det is not None:
+                    s_np = s_t.cpu().numpy()
+                    ls = ls_t.cpu().numpy()
+                    for f, lm in enumerate(self._lip_masks(det, s_np, ls)):
+                        if lm is None:
+                            continue
+                        (Y0, Y1, X0, X1), m = lm
+                        after = (lq_t[Y0:Y1, X0:X1] + corr[Y0:Y1, X0:X1]).cpu().numpy()
+                        w8 = m / m.sum()
+                        dl = np.array([((ls[Y0:Y1, X0:X1, c] - after[..., c]) * w8).sum() for c in range(3)], np.float32)
+                        ema[f] = dl if f not in ema else 0.5 * ema[f] + 0.5 * dl
+                        corr[Y0:Y1, X0:X1] += torch.from_numpy(ema[f] * np.clip(m * 1.6, 0, 1)[..., None]).to(gdev)
+                        lipd.append(ema[f])
+                if (QW, QH) != (W, H):
+                    corr = F.interpolate(corr.movedim(-1, 0)[None], size=(QH, QW), mode="bilinear",
+                                         align_corners=False)[0].movedim(0, -1)
+                res = lab2rgb(rgb2lab(q_t) + corr)
+            out[k] = res.to(out.device, out.dtype)
             pbar.update(1)
         m = np.mean(dev, 0) if dev else np.zeros(3)
         report = f"tone match: {n} frame(s), mean |correction| L {m[0]:.2f} a {m[1]:.2f} b {m[2]:.2f}"

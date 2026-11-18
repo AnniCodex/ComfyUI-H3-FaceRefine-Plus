@@ -1,5 +1,23 @@
 # ComfyUI-H3-FaceRefine-Plus
 
+> ## 🚀 v0.2.0: a big speed-up, **+170 % speed (2.7x faster)**
+>
+> The full FaceRefine Plus pipeline now runs its heavy steps on the GPU. On the `mara` example (107 frames,
+> RTX 5090, model loaders cached) one refine went from **244 s to 90 s: the render time is 63 % shorter**.
+> Same output: the GPU nodes match the old CPU ones within 1/255.
+>
+> | Step | v0.1 | v0.2 |
+> |---|---|---|
+> | H3 Face Flow Lock | 120 s | 6 s (21x) |
+> | H3 Face Tone Match | 43 s | 11 s (3.8x) |
+> | H3 Face Mask To Latent (new) | 174 s on CPU | < 1 s |
+>
+> Also new in v0.2.0:
+> - **H3 FaceRefine Plus Mode**: one dropdown picks the whole recipe, V1 or V2, strength and VOSR2
+>   (`examples/face_refine_plus_modes_workflow.json`). Only the branch you pick runs.
+> - **Default strength 0.30** (was 0.15, which changed too little on small faces).
+> - **V2** (SAM3 face mask, only the face is re-drawn): about 1.4x faster than V1, with an optional VOSR2 pass.
+
 Add-on nodes for [ComfyUI-H3-FaceRefine](https://github.com/Carasibana/ComfyUI-H3-FaceRefine) by Carasibana, the
 MiniMax H3 face refiner for video. This pack does not replace it. It works on the `H3FACEXFORM` transform that
 **H3 Face Track Crop** produces, and it slots into the same workflow.
@@ -14,11 +32,50 @@ MiniMax H3 face refiner for video. This pack does not replace it. It works on th
 | **H3 Face Stitch Plus** | replaces H3 Face Stitch | aliasing on paste, pasted-on look, low-res faces |
 | **H3 Face Crop Upscale (SR)** | replaces Track Crop's crops | tiny faces reaching H3 as a blur |
 | **H3 Face Tone Match** | at the end, vs the source clip | colour drift (darker, magenta skin, purple lips) from an upscaled base |
-| **H3 FaceRefine Plus Strength (preset)** | into BasicScheduler's `denoise` | picking the refine strength: `standard 0.15` (recommended) or `strong 0.30` (older default) |
+| **H3 FaceRefine Plus Strength (preset)** | into BasicScheduler's `denoise` | picking the refine strength: `0.30` (default) or `0.15` (light) |
+| **H3 FaceRefine Plus Mode (V1 / V2 / VOSR2)** | drives the modes workflow | one dropdown for the whole recipe (see below) |
+| **H3 FaceRefine Plus Switch (lazy)** | picks one branch | only the selected input is computed |
+| **H3 Face Mask To Latent** | between SAM3 and the sampler | V2: turns a per-frame face mask into a latent noise mask |
 
-**Refine strength.** `standard 0.15` keeps the identity, expression and colours of the face H3 drew.
-`strong 0.30` re-draws the face more: it moves toward the reference pictures, away from the face in the shot.
-The higher the strength, the more the face changes. A `custom` value is also available.
+**Refine strength.** `0.30` (default since v0.2.0) re-draws the face toward the reference pictures: on small faces it
+looks much more like the character. `0.15` keeps more of the face H3 drew. The higher the strength, the more the face
+changes. A `custom` value is also available. Workflows saved with the v0.1 labels (`standard 0.15`, `strong 0.30`)
+still load.
+
+## V1 or V2: the Mode dropdown
+
+`examples/face_refine_plus_modes_workflow.json` holds two pipelines. **H3 FaceRefine Plus Mode** picks one, and the
+lazy **Switch** nodes run only that branch (with V1 nothing of V2 runs, VOSR2 included, and the other way round).
+
+- **V1** is the FaceRefine Plus graph: whole frame x2 (RTX Video Super Resolution), the face crop re-drawn with the
+  prompt and **3 reference pictures** (face reference, character sheet, keyref), Stitch Plus, Flow Lock, Tone Match.
+  Best identity and the least wobble in our tests. **Default: V1 (0.30).**
+- **V2** puts a SAM3 mask on the face (or face + hair) and re-draws only that part of a 768 px crop, with an **empty
+  prompt and the character sheet only** (the face reference and the keyref are not used). Faster, but the face
+  wobbles more. `+ VOSR2` sharpens the refined crops; it is offered only for V2, because on V1 it made the face softer.
+
+Options: `V1 (0.30) - default`, `V1 (0.15)`, `V2 (0.30 face)`, `V2 (0.50 face)`, `V2 (0.30 face + hair)`,
+`V2 (0.50 face + hair)`, and the four V2 modes `+ VOSR2`.
+
+Measured on `mara` (107 frames, 1536x896, face 41-62 px, RTX 5090, only the model loaders cached):
+
+| Mode | Wobble | Face sharpness | Identity vs close-ups | Time |
+|---|---|---|---|---|
+| H3 original | - | 3851 | 0.23 | - |
+| **V1 (0.30)** | **0.43 %** | 2957 | **0.69** | 91 s |
+| V1 (0.15) | 0.42 % | 2984 | 0.41 | 83 s |
+| V2 (0.30 face) | 0.57 % | 2096 | 0.56 | 62 s |
+| V2 (0.50 face) | 0.68 % | 2360 | 0.65 | 62 s |
+| V2 (0.30 face + hair) | 0.65 % | 2019 | 0.56 | 63 s |
+| V2 (0.30 face + hair) + VOSR2 | 0.68 % | 2959 | 0.58 | 116 s |
+| V2 (0.50 face + hair) + VOSR2 | 0.80 % | **3299** | 0.63 | 123 s |
+
+Side-by-side videos: `compare_v1_v2_strength.mp4` and `compare_v1_v2_face_hair.mp4` on the
+[tests page](https://annicodex.github.io/FaceRefine-Plus-Tests/).
+
+V2 needs, besides ComfyUI-H3-FaceRefine: the core SAM3 nodes and `sam3.1_multiplex_fp16.safetensors`,
+`bbox/face_yolov8n.pt`, and for the `+ VOSR2` modes [ComfyUI-VOSR2](https://github.com/ylchen333/ComfyUI-VOSR2) (not needed if you
+never pick a VOSR2 mode).
 
 ## Requirements
 
@@ -81,7 +138,7 @@ shot, prompt, reference pictures and seed. The official refine uses the values o
 example (crop_factor 3, denoise 0.40, stock Face Stitch, no upscale).
 
 - `comparison_mara_official_zoom.mp4`: face zooms of the original, the official FaceRefine, FaceRefine Plus
-  `standard 0.15` and FaceRefine Plus `strong 0.30`.
+  `0.15` and FaceRefine Plus `0.30`.
 - `comparison_mara_strength.mp4`: the same four versions, with the whole source frame on top to show how small the
   face is in the scene.
 
@@ -89,11 +146,11 @@ example (crop_factor 3, denoise 0.40, stock Face Stitch, no upscale).
 |---|---|---|---|---|---|
 | H3 original | - | 3851 | - | 0.23 | - |
 | Official FaceRefine | 0.70 % | 1613 | -0.9 / -2.2 | 0.60 | 87 s |
-| FaceRefine Plus `standard 0.15` | **0.42 %** | **2979** | **-0.2 / -0.5** | 0.41 | 256 s |
-| FaceRefine Plus `strong 0.30` | 0.45 % | 2948 | **-0.2 / -0.5** | **0.68** | 239 s |
+| FaceRefine Plus `0.15` | **0.42 %** | **2984** | **-0.2 / -0.5** | 0.41 | 83 s (v0.1: 256 s) |
+| FaceRefine Plus `0.30` (default) | 0.43 % | 2957 | **-0.1 / -0.5** | **0.69** | 91 s (v0.1: 239 s) |
 
-Plus keeps the face steadier, sharper and in the shot's colours. At `standard` it stays close to the face H3 drew,
-so it scores lower than the official refine on identity vs the close-ups. At `strong` it re-draws the face toward the
+Plus keeps the face steadier, sharper and in the shot's colours. At `0.15` it stays close to the face H3 drew,
+so it scores lower than the official refine on identity vs the close-ups. At `0.30` it re-draws the face toward the
 reference pictures and beats the official refine on identity as well. Doubling the strength does not add detail.
 On bigger faces (about 100 px) the two presets measure almost the same.
 
@@ -219,6 +276,12 @@ real people.
 
 Notes in the workflow explain each step. API format: `examples/face_refine_plus_keyref_qwen_api.json`.
 
+### V1 / V2 in one workflow (UI workflow)
+
+Drag `examples/face_refine_plus_modes_workflow.json` onto the canvas and pick the mode in **H3 FaceRefine Plus Mode**.
+It is the one-shot workflow below plus the V2 branch. In V2 modes the prompt, the face reference and the keyref are
+not used: only the character sheet. API format: `examples/face_refine_plus_modes_api.json`.
+
 ### Recommended: one shot, full pipeline (UI workflow)
 
 Drag `examples/face_refine_plus_one_shot_workflow.json` onto the ComfyUI canvas. It is grouped in six steps, and each
@@ -228,7 +291,7 @@ step has a note that explains it and how to set it up:
 2. Models.
 3. Reference pictures (face reference, character sheet, keyref).
 4. H3 Face Track Crop + H3 Reference-to-Video, Inject Video Latent, Native Audio Lock, Per-Frame Denoise.
-5. Sampler: 8 turbo steps; denoise from **H3 FaceRefine Plus Strength** (`standard 0.15`; `strong 0.30` changes the face more).
+5. Sampler: 8 turbo steps; denoise from **H3 FaceRefine Plus Strength** (`0.30` default; `0.15` changes the face less).
 6. H3 Face Stitch Plus → **H3 Face Flow Lock** → **H3 Face Tone Match** (with the lip fix) → scale back to the
    source size → Video Combine.
 
@@ -285,7 +348,7 @@ final sharpen (optional, it can be bypassed), [comfyui-vrgamedevgirl](https://gi
 `examples/face_refine_plus_flowlock_api.json` is an API-format workflow:
 
 H3 Face Select → H3 Face Track Crop → H3 Reference-to-Video + Inject Video Latent + Native Audio Lock → Per-Frame
-Denoise → sampler (8 turbo steps, denoise 0.30 = the `strong` preset) → H3 Face Stitch Plus (freq_sep) → **H3 Face Flow Lock** → Video
+Denoise → sampler (8 turbo steps, denoise 0.30 = the default preset) → H3 Face Stitch Plus (freq_sep) → **H3 Face Flow Lock** → Video
 Combine.
 
 Before you run it, set the following to your own files and models:

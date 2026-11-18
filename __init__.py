@@ -6,6 +6,8 @@ from .nodes_plus import H3FaceCropUpscale, H3FaceStitchPlus
 from .nodes_flowlock import H3FaceFlowLock
 from .nodes_tonematch import H3FaceToneMatch
 from .nodes_strength import H3FaceRefineStrength
+from .nodes_mask import H3FaceMaskToLatent
+from .nodes_mode import H3FaceRefineMode, H3FaceRefineSwitch
 
 NODE_CLASS_MAPPINGS = {
     "H3FaceCropUpscale": H3FaceCropUpscale,
@@ -13,6 +15,9 @@ NODE_CLASS_MAPPINGS = {
     "H3FaceFlowLock": H3FaceFlowLock,
     "H3FaceToneMatch": H3FaceToneMatch,
     "H3FaceRefineStrength": H3FaceRefineStrength,
+    "H3FaceMaskToLatent": H3FaceMaskToLatent,
+    "H3FaceRefineMode": H3FaceRefineMode,
+    "H3FaceRefineSwitch": H3FaceRefineSwitch,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "H3FaceCropUpscale": "H3 Face Crop Upscale (SR)",
@@ -20,4 +25,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "H3FaceFlowLock": "H3 Face Flow Lock (anti-wobble)",
     "H3FaceToneMatch": "H3 Face Tone Match (colour back to source)",
     "H3FaceRefineStrength": "H3 FaceRefine Plus Strength (preset)",
+    "H3FaceMaskToLatent": "H3 Face Mask To Latent (face-only re-draw)",
+    "H3FaceRefineMode": "H3 FaceRefine Plus Mode (V1 / V2 / VOSR2)",
+    "H3FaceRefineSwitch": "H3 FaceRefine Plus Switch (lazy)",
 }

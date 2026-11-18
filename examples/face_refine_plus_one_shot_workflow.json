@@ -1847,11 +1847,11 @@
     "Node name for S&R": "H3FaceRefineStrength"
    },
    "widgets_values": [
-    "standard 0.15 (recommended: keeps the face H3 drew)",
+    "0.30 (default: re-draws the face toward the references)",
     0.15
    ],
    "widgets_values_named": {
-    "preset": "standard 0.15 (recommended: keeps the face H3 drew)",
+    "preset": "0.30 (default: re-draws the face toward the references)",
     "custom_denoise": 0.15
    }
   },
@@ -3152,10 +3152,10 @@
    "title": "Note: 5 - Sampling + refine strength",
    "properties": {},
    "widgets_values": [
-    "## 5 - Sampling + refine strength\n\ner_sde sampler, 8 steps. The denoise comes from **H3 FaceRefine Plus Strength (preset)**:\n- **standard 0.15** (recommended): keeps the identity, expression and colours of the face H3 drew; least wobble.\n- **strong 0.30** (older default): re-draws the face more, toward the reference pictures. On small faces it looks more like the character (mara, 41-62 px: identity vs close-ups 0.41 -> 0.67), with no extra sharpness and slightly more wobble. On faces around 100 px it changes little.\n- **custom**: any value. 0.45 + keyref gives a different-looking person: single clips only, never inside a music video.\n\n**The higher the strength, the more the face is changed.** Keep the seed fixed when you compare settings."
+    "## 5 - Sampling + refine strength\n\ner_sde sampler, 8 steps. The denoise comes from **H3 FaceRefine Plus Strength (preset)**:\n- **0.30** (default since v0.2.0): re-draws the face toward the reference pictures. On small faces it looks much more like the character (mara, 41-62 px: identity vs close-ups 0.41 -> 0.69, wobble 0.42% -> 0.43%).\n- **0.15** (light): keeps more of the face H3 drew; on small faces the change is hard to see.\n\nWant V2 (SAM3 mask) or VOSR2? Use `face_refine_plus_modes_workflow.json`: one dropdown picks V1 / V2.\n- **custom**: any value. 0.45 + keyref gives a different-looking person: single clips only, never inside a music video.\n\n**The higher the strength, the more the face is changed.** Keep the seed fixed when you compare settings."
    ],
    "widgets_values_named": {
-    "text": "## 5 - Sampling + refine strength\n\ner_sde sampler, 8 steps. The denoise comes from **H3 FaceRefine Plus Strength (preset)**:\n- **standard 0.15** (recommended): keeps the identity, expression and colours of the face H3 drew; least wobble.\n- **strong 0.30** (older default): re-draws the face more, toward the reference pictures. On small faces it looks more like the character (mara, 41-62 px: identity vs close-ups 0.41 -> 0.67), with no extra sharpness and slightly more wobble. On faces around 100 px it changes little.\n- **custom**: any value. 0.45 + keyref gives a different-looking person: single clips only, never inside a music video.\n\n**The higher the strength, the more the face is changed.** Keep the seed fixed when you compare settings."
+    "text": "## 5 - Sampling + refine strength\n\ner_sde sampler, 8 steps. The denoise comes from **H3 FaceRefine Plus Strength (preset)**:\n- **0.30** (default since v0.2.0): re-draws the face toward the reference pictures. On small faces it looks much more like the character (mara, 41-62 px: identity vs close-ups 0.41 -> 0.69, wobble 0.42% -> 0.43%).\n- **0.15** (light): keeps more of the face H3 drew; on small faces the change is hard to see.\n\nWant V2 (SAM3 mask) or VOSR2? Use `face_refine_plus_modes_workflow.json`: one dropdown picks V1 / V2.\n- **custom**: any value. 0.45 + keyref gives a different-looking person: single clips only, never inside a music video.\n\n**The higher the strength, the more the face is changed.** Keep the seed fixed when you compare settings."
    },
    "color": "#432",
    "bgcolor": "#653"

@@ -356,7 +356,7 @@
  "41": {
   "class_type": "H3FaceRefineStrength",
   "inputs": {
-   "preset": "strong 0.30 (older default: re-draws the face more, toward the references)",
+   "preset": "0.30 (default: re-draws the face toward the references)",
    "custom_denoise": 0.15
   },
   "_meta": {
